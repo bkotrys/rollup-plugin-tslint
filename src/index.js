@@ -23,13 +23,13 @@ export default function tslint (options = {}) {
   const tsConfigSearchPath = options.tsConfigSearchPath || process.cwd()
   const tsConfigFile = ts.findConfigFile(tsConfigSearchPath, ts.sys.fileExists)
   const program = Linter.createProgram(tsConfigFile)
-  const linter = new Linter(options, program)
 
   return {
     name: 'tslint',
     sourceMap: false,
 
     transform (code, id) {
+      const linter = new Linter(options, program)
       const fileName = normalizePath(id)
       if (!filter(id)) {
         return null
